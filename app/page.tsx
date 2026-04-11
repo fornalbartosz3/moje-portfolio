@@ -171,7 +171,7 @@ export default function Home() {
         transition={{ duration: 0.4, delay: project.id * 0.1 }}
         viewport={{ once: true }}
 >
-  <Card className="h-full border-0 bg-gradient-to-br from-blue-950/50 to-slate-900/80 p-[1px] hover:from-blue-900/50 hover:to-slate-800/80 transition-all duration-300 cursor-pointer">
+  <Card className="h-full border-0 [&]:border-0 bg-gradient-to-br from-blue-950/50 to-slate-900/80 hover:from-blue-900/50 hover:to-slate-800/80 transition-all duration-300 cursor-pointer" style={{border: 'none'}}>
           <CardHeader className="pb-2 px-6 pt-6">
             <CardTitle>{project.title}</CardTitle>
           </CardHeader>
