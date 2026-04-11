@@ -18,6 +18,12 @@ const projects: Project[] = [
     description: "Opis kolejnego projektu.",
     tags: ["React", "TypeScript"],
   },
+  {
+    id: 3,
+    title: "Projekt 3",
+    description: "Opis kolejnego projektu.",
+    tags: ["React", "TypeScript"],
+  },
 ];
 
 
