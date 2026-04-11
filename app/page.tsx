@@ -52,14 +52,34 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
-        <h1 className="text-5xl font-bold mb-4">Cześć, jestem Bartek</h1>
-        <p className="text-xl text-gray-400 mb-8">Uczę się budować aplikacje webowe</p>
-       <Button asChild size="lg" variant="outline">
-          <a href="#o-mnie">Dowiedz się więcej</a>
-        </Button>
-      </section>
+     {/* Hero */}
+<section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
+  <motion.h1
+    className="text-5xl font-bold mb-4"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7 }}
+  >
+    Cześć, jestem Bartek
+  </motion.h1>
+  <motion.p
+    className="text-xl text-gray-400 mb-8"
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.2 }}
+  >
+    Uczę się budować aplikacje webowe
+  </motion.p>
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.7, delay: 0.4 }}
+  >
+    <Button asChild size="lg" variant="outline">
+      <a href="#o-mnie">Dowiedz się więcej</a>
+    </Button>
+  </motion.div>
+</section>
 
       {/* O mnie */}
       <motion.section
@@ -115,16 +135,17 @@ export default function Home() {
   viewport={{ once: true }}
 >
   <h2 className="text-3xl font-bold mb-8">Projekty</h2>
-  <div className="grid md:grid-cols-2 gap-6">
+  <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
     {projects.map((project) => (
       <motion.div
         key={project.id}
+        className="h-full"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: project.id * 0.1 }}
         viewport={{ once: true }}
-      >
-        <Card className="border-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-[1px] hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-pointer">
+>
+  <Card className="h-full border-0 bg-gradient-to-br from-blue-950/50 to-slate-900/80 p-[1px] hover:from-blue-900/50 hover:to-slate-800/80 transition-all duration-300 cursor-pointer">
           <CardHeader className="pb-2 px-6 pt-6">
             <CardTitle>{project.title}</CardTitle>
           </CardHeader>
