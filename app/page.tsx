@@ -30,6 +30,7 @@ const projects: Project[] = [
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   return (
@@ -72,7 +73,7 @@ export default function Home() {
           <h2 className="text-3xl font-bold mb-8">Umiejętności</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {["HTML/CSS", "Git & GitHub", "Next.js", "TypeScript", "Tailwind CSS", "Vercel", "React", "Claude AI"].map((skill) => (
-              <div key={skill} className="bg-gray-800 rounded-lg p-4 text-center text-sm font-medium">
+              <div key={skill} className="bg-gray-800 rounded-lg p-4 text-center text-sm font-medium hover:bg-gray-700 transition-all duration-300 cursor-pointer">
                 {skill}
               </div>
             ))}
@@ -85,7 +86,7 @@ export default function Home() {
   <h2 className="text-3xl font-bold mb-8">Projekty</h2>
   <div className="grid md:grid-cols-2 gap-6">
     {projects.map((project) => (
-     <Card key={project.id} className="border-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-[1px]">
+     <Card key={project.id} className="border-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-[1px] hover:from-blue-500/30 hover:to-purple-500/30 transition-all duration-300 cursor-pointer">
   <CardHeader className="pb-2 px-6 pt-6">
   <CardTitle>{project.title}</CardTitle>
 </CardHeader>
@@ -93,9 +94,7 @@ export default function Home() {
     <p className="text-gray-400 text-sm mb-4">{project.description}</p>
     <div className="flex gap-2 flex-wrap">
       {project.tags.map((tag) => (
-        <span key={tag} className="text-xs bg-gray-800 px-3 py-1 rounded-full">
-          {tag}
-        </span>
+  <Badge key={tag} variant="secondary">{tag}</Badge>
       ))}
     </div>
   </CardContent>
