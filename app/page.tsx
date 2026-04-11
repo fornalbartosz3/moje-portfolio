@@ -29,6 +29,7 @@ const projects: Project[] = [
 
 
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
@@ -84,17 +85,21 @@ export default function Home() {
   <h2 className="text-3xl font-bold mb-8">Projekty</h2>
   <div className="grid md:grid-cols-2 gap-6">
     {projects.map((project) => (
-      <div key={project.id} className="bg-gray-900 rounded-xl p-6 border border-gray-800">
-        <h3 className="font-bold text-lg mb-2">{project.title}</h3>
-        <p className="text-gray-400 text-sm mb-4">{project.description}</p>
-        <div className="flex gap-2 flex-wrap">
-          {project.tags.map((tag) => (
-            <span key={tag} className="text-xs bg-gray-800 px-3 py-1 rounded-full">
-              {tag}
-            </span>
-          ))}
-        </div>
-      </div>
+     <Card key={project.id} className="border-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 p-[1px]">
+  <CardHeader className="pb-2 px-6 pt-6">
+  <CardTitle>{project.title}</CardTitle>
+</CardHeader>
+<CardContent className="px-6 pb-6 space-y-4">
+    <p className="text-gray-400 text-sm mb-4">{project.description}</p>
+    <div className="flex gap-2 flex-wrap">
+      {project.tags.map((tag) => (
+        <span key={tag} className="text-xs bg-gray-800 px-3 py-1 rounded-full">
+          {tag}
+        </span>
+      ))}
+    </div>
+  </CardContent>
+</Card>
     ))}
   </div>
 </section>
