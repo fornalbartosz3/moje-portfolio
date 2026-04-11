@@ -27,6 +27,9 @@ const projects: Project[] = [
 ];
 
 
+
+import { Button } from "@/components/ui/button";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-gray-950 text-white">
@@ -48,9 +51,9 @@ export default function Home() {
       <section className="min-h-screen flex flex-col items-center justify-center text-center px-6">
         <h1 className="text-5xl font-bold mb-4">Cześć, jestem Bartek</h1>
         <p className="text-xl text-gray-400 mb-8">Uczę się budować aplikacje webowe</p>
-        <a href="#o-mnie" className="bg-white text-gray-950 px-6 py-3 rounded-full font-medium hover:bg-gray-200 transition-colors">
-          Dowiedz się więcej
-        </a>
+       <Button asChild size="lg" variant="outline">
+          <a href="#o-mnie">Dowiedz się więcej</a>
+        </Button>
       </section>
 
       {/* O mnie */}
