@@ -9,7 +9,7 @@ export default function Home() {
           <div className="flex gap-6 text-sm text-gray-400">
             <a href="#o-mnie" className="hover:text-white transition-colors">O mnie</a>
             <a href="#umiejetnosci" className="hover:text-white transition-colors">Umiejętności</a>
-            <a href="#projekty" className="hover:text-white transition-colors">Projekty</a>
+            <a href="/projekty" className="hover:text-white transition-colors">Projekty</a>
             <a href="#kontakt" className="hover:text-white transition-colors">Kontakt</a>
           </div>
         </div>
