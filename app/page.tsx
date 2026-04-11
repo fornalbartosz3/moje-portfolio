@@ -34,8 +34,15 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
+import { useState } from "react";
+
 
 export default function Home() {
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+
+  const filteredProjects = activeTag
+    ? projects.filter((p) => p.tags.includes(activeTag))
+    : projects;
   return (
     <main className="min-h-screen bg-gray-950 text-white">
 
@@ -134,9 +141,28 @@ export default function Home() {
   transition={{ duration: 0.6 }}
   viewport={{ once: true }}
 >
-  <h2 className="text-3xl font-bold mb-8">Projekty</h2>
+  <h2 className="text-3xl font-bold mb-4">Projekty</h2>
+<div className="flex gap-2 flex-wrap mb-8">
+  <Button
+    variant={activeTag === null ? "default" : "outline"}
+    size="sm"
+    onClick={() => setActiveTag(null)}
+  >
+    Wszystkie
+  </Button>
+  {["Next.js", "Tailwind", "React", "TypeScript"].map((tag) => (
+    <Button
+      key={tag}
+      variant={activeTag === tag ? "default" : "outline"}
+      size="sm"
+      onClick={() => setActiveTag(tag)}
+    >
+      {tag}
+    </Button>
+  ))}
+</div>
   <div className="grid md:grid-cols-2 gap-6 auto-rows-fr">
-    {projects.map((project) => (
+    {filteredProjects.map((project) => (
       <motion.div
         key={project.id}
         className="h-full"
