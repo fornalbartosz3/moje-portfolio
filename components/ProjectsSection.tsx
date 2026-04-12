@@ -55,15 +55,12 @@ export default function ProjectsSection() {
             transition={{ duration: 0.4, delay: project.id * 0.1 }}
             viewport={{ once: true }}
           >
-            <Card
-              className="h-full border-0 [&]:border-0 bg-gradient-to-br from-blue-950/50 to-slate-900/80 hover:from-blue-900/50 hover:to-slate-800/80 transition-all duration-300 cursor-pointer"
-              style={{ border: "none" }}
-            >
+            <Card className="h-full bg-gradient-to-br from-blue-100/80 to-slate-200/80 dark:from-blue-950/50 dark:to-slate-900/80 hover:from-blue-200/80 hover:to-slate-300/80 dark:hover:from-blue-900/50 dark:hover:to-slate-800/80 transition-all duration-300 cursor-pointer border-0 shadow-sm">
               <CardHeader className="pb-2 px-6 pt-6">
                 <CardTitle>{project.title}</CardTitle>
               </CardHeader>
               <CardContent className="px-6 pb-6 space-y-4">
-                <p className="text-gray-400 text-sm mb-4">{project.description}</p>
+                <p className="text-gray-600 dark:text-gray-400 text-sm mb-4">{project.description}</p>
                 <div className="flex gap-2 flex-wrap">
                   {project.tags.map((tag) => (
                     <Badge key={tag} variant="secondary">{tag}</Badge>

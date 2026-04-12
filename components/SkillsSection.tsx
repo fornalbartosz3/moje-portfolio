@@ -8,7 +8,7 @@ export default function SkillsSection() {
   return (
     <motion.section
       id="umiejetnosci"
-      className="bg-gray-900 py-24"
+      className="bg-gray-100 dark:bg-gray-900 py-24"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.1 }}
@@ -20,7 +20,7 @@ export default function SkillsSection() {
           {skills.map((skill) => (
             <motion.div
               key={skill}
-              className="bg-gray-800 rounded-lg p-4 text-center text-sm font-medium hover:bg-gray-700 transition-all duration-300 cursor-pointer"
+              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer shadow-sm"
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3 }}

@@ -38,6 +38,11 @@
   --destructive: oklch(0.704 0.191 22.216);
 }
 
+@keyframes orb-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
 @layer base {
   * {
     border-color: var(--border);

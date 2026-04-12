@@ -13,7 +13,7 @@ export default function AboutSection() {
       viewport={{ once: true }}
     >
       <h2 className="text-3xl font-bold mb-8">O mnie</h2>
-      <p className="text-gray-400 text-lg leading-relaxed">
+      <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed">
         Jestem początkującym developerem, który uczy się budować nowoczesne aplikacje webowe.
         Interesuję się frontendem, narzędziami AI i tworzeniem produktów od zera.
       </p>
