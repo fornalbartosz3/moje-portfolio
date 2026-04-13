@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data/projects";
 
-const ALL_TAGS = ["Next.js", "Tailwind", "React", "TypeScript"];
+// Derive unique tags from project data
+const ALL_TAGS = Array.from(new Set(projects.flatMap((p) => p.tags)));
 
 export default function ProjectsSection() {
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -89,8 +90,7 @@ export default function ProjectsSection() {
               key={project.id}
               style={{
                 padding: "36px 28px",
-                borderRight:
-                  (index % 3 !== 2) ? "1px solid #d4c9b8" : "none",
+                borderRight: index % 3 !== 2 ? "1px solid #d4c9b8" : "none",
                 borderBottom: "1px solid #d4c9b8",
                 display: "flex",
                 flexDirection: "column",
@@ -167,33 +167,43 @@ export default function ProjectsSection() {
                 ))}
               </div>
 
-              {/* View link */}
-              <a
-                href="#"
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontSize: "10px",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "#d4a853",
-                  textDecoration: "none",
-                  borderBottom: "1px solid transparent",
-                  paddingBottom: "1px",
-                  width: "fit-content",
-                  transition: "border-color 0.15s",
-                }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.borderColor = "#d4a853")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent")
-                }
-              >
-                Zobacz projekt
-                <span>→</span>
-              </a>
+              {/* Links */}
+              <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
+                {project.github && (
+                  <a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={linkStyle}
+                    onMouseEnter={(e) =>
+                      ((e.currentTarget as HTMLAnchorElement).style.borderColor = "#d4a853")
+                    }
+                    onMouseLeave={(e) =>
+                      ((e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent")
+                    }
+                  >
+                    GitHub
+                    <span>↗</span>
+                  </a>
+                )}
+                {project.demo && (
+                  <a
+                    href={project.demo}
+                    target={project.demo === "/" ? undefined : "_blank"}
+                    rel={project.demo === "/" ? undefined : "noopener noreferrer"}
+                    style={linkStyle}
+                    onMouseEnter={(e) =>
+                      ((e.currentTarget as HTMLAnchorElement).style.borderColor = "#d4a853")
+                    }
+                    onMouseLeave={(e) =>
+                      ((e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent")
+                    }
+                  >
+                    Demo
+                    <span>→</span>
+                  </a>
+                )}
+              </div>
             </article>
           ))
         )}
@@ -215,6 +225,21 @@ export default function ProjectsSection() {
     </motion.section>
   );
 }
+
+const linkStyle: React.CSSProperties = {
+  display: "inline-flex",
+  alignItems: "center",
+  gap: "5px",
+  fontSize: "10px",
+  letterSpacing: "0.2em",
+  textTransform: "uppercase",
+  color: "#d4a853",
+  textDecoration: "none",
+  borderBottom: "1px solid transparent",
+  paddingBottom: "1px",
+  width: "fit-content",
+  transition: "border-color 0.15s",
+};
 
 function FilterBtn({
   active,

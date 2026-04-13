@@ -9,6 +9,7 @@ const config: Config = {
   coverageProvider: "v8",
   testEnvironment: "jsdom",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
+  testPathIgnorePatterns: ["/node_modules/", "/.claude/"],
   moduleNameMapper: {
     "^framer-motion$": "<rootDir>/__mocks__/framer-motion.tsx",
   },

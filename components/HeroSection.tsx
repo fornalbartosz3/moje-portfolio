@@ -3,6 +3,22 @@
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data/projects";
 
+function ScrollArrow() {
+  return (
+    <svg
+      className="scroll-arrow"
+      width="16"
+      height="24"
+      viewBox="0 0 16 24"
+      fill="none"
+      aria-hidden="true"
+    >
+      <line x1="8" y1="0" x2="8" y2="16" stroke="#b8a990" strokeWidth="1" />
+      <polyline points="3,12 8,18 13,12" stroke="#b8a990" strokeWidth="1" fill="none" />
+    </svg>
+  );
+}
+
 export default function HeroSection() {
   return (
     <section
@@ -256,8 +272,41 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Bottom rule */}
-      <div style={{ borderTop: "1px solid #d4c9b8", marginTop: "64px" }} />
+      {/* Bottom rule + scroll indicator */}
+      <div
+        style={{
+          borderTop: "1px solid #d4c9b8",
+          marginTop: "64px",
+          paddingTop: "24px",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <a
+          href="#o-mnie"
+          aria-label="Przewiń w dół"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: "8px",
+            textDecoration: "none",
+            color: "#b8a990",
+            cursor: "pointer",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "9px",
+              letterSpacing: "0.3em",
+              textTransform: "uppercase",
+            }}
+          >
+            Scroll
+          </span>
+          <ScrollArrow />
+        </a>
+      </div>
 
       <style>{`
         @media (max-width: 640px) {
@@ -265,6 +314,11 @@ export default function HeroSection() {
           .hero-cols > div:last-child { display: flex; justify-content: flex-start !important; }
           .hero-cols > div:last-child > div { max-width: 100% !important; }
         }
+        @keyframes scrollBounce {
+          0%, 100% { transform: translateY(0); opacity: 1; }
+          50% { transform: translateY(6px); opacity: 0.5; }
+        }
+        .scroll-arrow { animation: scrollBounce 1.8s ease-in-out infinite; }
       `}</style>
     </section>
   );
