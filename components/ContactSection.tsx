@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -9,20 +9,18 @@ export default function ContactSection() {
   const [status, setStatus] = useState<Status>("idle");
   const [form, setForm] = useState({ name: "", email: "", message: "" });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-
     const res = await fetch("/api/contact", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(form),
     });
-
     if (res.ok) {
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
@@ -32,73 +30,314 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="kontakt" className="bg-gray-100 dark:bg-gray-900 py-24">
-      <div className="max-w-xl mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-4 text-center">Kontakt</h2>
-        <p className="text-gray-600 dark:text-gray-400 mb-8 text-center">
-          Chcesz się skontaktować? Napisz do mnie.
-        </p>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label htmlFor="name" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Imię
-            </label>
-            <input
+    <motion.section
+      id="kontakt"
+      aria-labelledby="contact-heading"
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.65, ease: "easeOut" }}
+      viewport={{ once: true }}
+      style={{
+        backgroundColor: "#e8ddd0",
+        borderTop: "1px solid #d4c9b8",
+        padding: "96px 0",
+      }}
+    >
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+        <div
+          className="contact-cols"
+          style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}
+        >
+          {/* Left — editorial heading */}
+          <div>
+            <div
+              style={{
+                fontSize: "10px",
+                letterSpacing: "0.34em",
+                textTransform: "uppercase",
+                color: "#d4a853",
+                marginBottom: "18px",
+              }}
+            >
+              Kontakt
+            </div>
+
+            <h2
+              id="contact-heading"
+              style={{
+                fontFamily: "Georgia, serif",
+                fontSize: "clamp(2rem, 4vw, 3.5rem)",
+                fontWeight: "bold",
+                lineHeight: 1.1,
+                color: "#1a1208",
+                marginBottom: "20px",
+              }}
+            >
+              Porozmawiajmy<br />o projekcie.
+            </h2>
+
+            <p
+              style={{
+                fontSize: "16px",
+                lineHeight: 1.7,
+                color: "#6a5a48",
+                maxWidth: "38ch",
+                marginBottom: "40px",
+              }}
+            >
+              Masz pomysł albo pytanie? Napisz do mnie — odpiszę szybko.
+            </p>
+
+            {/* Contact meta */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+              {[
+                { label: "Czas odpowiedzi", value: "< 24h" },
+                { label: "Dostępność", value: "Do ustalenia" },
+              ].map(({ label, value }) => (
+                <div
+                  key={label}
+                  style={{
+                    display: "flex",
+                    gap: "16px",
+                    alignItems: "baseline",
+                    paddingBottom: "12px",
+                    borderBottom: "1px solid #d4c9b8",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: "9px",
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      color: "#b8a990",
+                      minWidth: "120px",
+                    }}
+                  >
+                    {label}
+                  </span>
+                  <span style={{ fontSize: "13px", fontWeight: 500, color: "#1a1208" }}>
+                    {value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right — form */}
+          <form
+            onSubmit={handleSubmit}
+            noValidate
+            style={{ display: "flex", flexDirection: "column", gap: "18px" }}
+          >
+            <FormField
               id="name"
-              name="name"
+              label="Imię"
               type="text"
-              required
+              placeholder="Jan Kowalski"
               value={form.name}
               onChange={handleChange}
-              placeholder="Jan Kowalski"
-              className="rounded-lg px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-950 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
               required
+              autoComplete="name"
+            />
+            <FormField
+              id="email"
+              label="Email"
+              type="email"
+              placeholder="jan@example.com"
               value={form.email}
               onChange={handleChange}
-              placeholder="jan@example.com"
-              className="rounded-lg px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-950 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-            />
-          </div>
-          <div className="flex flex-col gap-1">
-            <label htmlFor="message" className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Wiadomość
-            </label>
-            <textarea
-              id="message"
-              name="message"
               required
-              rows={5}
-              value={form.message}
-              onChange={handleChange}
-              placeholder="Cześć, chciałem zapytać..."
-              className="rounded-lg px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-950 dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition resize-none"
+              autoComplete="email"
             />
-          </div>
-          <Button type="submit" disabled={status === "sending"} className="w-full">
-            {status === "sending" ? "Wysyłanie..." : "Wyślij wiadomość"}
-          </Button>
-          {status === "success" && (
-            <p className="text-center text-green-600 dark:text-green-400 text-sm">
-              Wiadomość wysłana! Odezwę się wkrótce.
+
+            {/* Textarea */}
+            <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <label
+                htmlFor="message"
+                style={{
+                  fontSize: "10px",
+                  letterSpacing: "0.22em",
+                  textTransform: "uppercase",
+                  color: "#8a7a65",
+                  display: "flex",
+                  gap: "4px",
+                  alignItems: "center",
+                }}
+              >
+                Wiadomość
+                <span style={{ color: "#d4a853" }} aria-hidden="true">*</span>
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={5}
+                value={form.message}
+                onChange={handleChange}
+                placeholder="Cześć, chciałem zapytać…"
+                aria-required="true"
+                style={{
+                  padding: "12px 14px",
+                  fontSize: "14px",
+                  lineHeight: 1.6,
+                  border: "1px solid #d4c9b8",
+                  backgroundColor: "#f2ede8",
+                  color: "#1a1208",
+                  outline: "none",
+                  resize: "none",
+                  fontFamily: "inherit",
+                  transition: "border-color 0.15s",
+                  minHeight: "140px",
+                }}
+                onFocus={(e) => (e.currentTarget.style.borderColor = "#d4a853")}
+                onBlur={(e) => (e.currentTarget.style.borderColor = "#d4c9b8")}
+              />
+            </div>
+
+            {/* Required note */}
+            <p style={{ fontSize: "11px", color: "#b8a990" }}>
+              <span style={{ color: "#d4a853" }}>*</span> Pola wymagane
             </p>
-          )}
-          {status === "error" && (
-            <p className="text-center text-red-600 dark:text-red-400 text-sm">
-              Coś poszło nie tak. Spróbuj ponownie.
-            </p>
-          )}
-        </form>
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              style={{
+                minHeight: "48px",
+                padding: "0 28px",
+                backgroundColor: "#1a1208",
+                color: "#f2ede8",
+                border: "none",
+                fontSize: "11px",
+                letterSpacing: "0.26em",
+                textTransform: "uppercase",
+                fontWeight: 500,
+                cursor: status === "sending" ? "default" : "pointer",
+                opacity: status === "sending" ? 0.6 : 1,
+                transition: "background-color 0.15s",
+                fontFamily: "inherit",
+                alignSelf: "flex-start",
+              }}
+              onMouseEnter={(e) => {
+                if (status !== "sending")
+                  (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#d4a853";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.backgroundColor = "#1a1208";
+              }}
+            >
+              {status === "sending" ? "Wysyłanie…" : "Wyślij wiadomość"}
+            </button>
+
+            {/* Feedback messages */}
+            {status === "success" && (
+              <p
+                role="status"
+                style={{
+                  fontSize: "12px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "#6a8a5a",
+                  padding: "12px 0",
+                  borderTop: "1px solid #d4c9b8",
+                }}
+              >
+                ✓ Wiadomość wysłana — odezwę się wkrótce.
+              </p>
+            )}
+            {status === "error" && (
+              <p
+                role="alert"
+                style={{
+                  fontSize: "12px",
+                  letterSpacing: "0.16em",
+                  textTransform: "uppercase",
+                  color: "#c0392b",
+                  padding: "12px 0",
+                  borderTop: "1px solid #d4c9b8",
+                }}
+              >
+                ✕ Coś poszło nie tak — spróbuj ponownie.
+              </p>
+            )}
+          </form>
+        </div>
       </div>
-    </section>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .contact-cols { grid-template-columns: 1fr !important; gap: 48px !important; }
+        }
+      `}</style>
+    </motion.section>
+  );
+}
+
+function FormField({
+  id,
+  label,
+  type,
+  placeholder,
+  value,
+  onChange,
+  required,
+  autoComplete,
+}: {
+  id: string;
+  label: string;
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  required?: boolean;
+  autoComplete?: string;
+}) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+      <label
+        htmlFor={id}
+        style={{
+          fontSize: "10px",
+          letterSpacing: "0.22em",
+          textTransform: "uppercase",
+          color: "#8a7a65",
+          display: "flex",
+          gap: "4px",
+          alignItems: "center",
+        }}
+      >
+        {label}
+        {required && (
+          <span style={{ color: "#d4a853" }} aria-hidden="true">
+            *
+          </span>
+        )}
+      </label>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required={required}
+        aria-required={required}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        autoComplete={autoComplete}
+        style={{
+          minHeight: "44px",
+          padding: "0 14px",
+          fontSize: "14px",
+          border: "1px solid #d4c9b8",
+          backgroundColor: "#f2ede8",
+          color: "#1a1208",
+          outline: "none",
+          fontFamily: "inherit",
+          transition: "border-color 0.15s",
+        }}
+        onFocus={(e) => (e.currentTarget.style.borderColor = "#d4a853")}
+        onBlur={(e) => (e.currentTarget.style.borderColor = "#d4c9b8")}
+      />
+    </div>
   );
 }

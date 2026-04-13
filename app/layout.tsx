@@ -1,38 +1,40 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
+import TickerBar from "@/components/TickerBar";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/ThemeProvider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const geist = Geist({ variable: "--font-geist", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Bartek | Portfolio",
-  description: "Osobiste portfolio Bartka",
+  title: "Bartek. | Frontend Dev",
+  description: "Portfolio Bartka — Frontend Developer",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="pl" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-gray-950 text-gray-950 dark:text-white`}
-      >
-        <ThemeProvider>
+    <html lang="pl">
+      <body className={geist.variable}>
+        {/* Fixed header: ticker + navbar */}
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 100,
+          }}
+        >
+          <TickerBar />
           <Navbar />
-          {children}
-        </ThemeProvider>
+        </div>
+
+        {/* Offset below fixed header (~32px ticker + ~57px navbar) */}
+        <div style={{ paddingTop: "89px" }}>{children}</div>
       </body>
     </html>
   );

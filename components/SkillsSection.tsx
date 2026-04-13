@@ -2,35 +2,149 @@
 
 import { motion } from "framer-motion";
 
-const skills = ["HTML/CSS", "Git & GitHub", "Next.js", "TypeScript", "Tailwind CSS", "Vercel", "React", "Claude AI"];
+const SKILL_GROUPS = [
+  {
+    category: "Języki",
+    skills: ["HTML / CSS", "TypeScript", "JavaScript"],
+  },
+  {
+    category: "Frameworki",
+    skills: ["React", "Next.js", "Tailwind CSS"],
+  },
+  {
+    category: "Narzędzia",
+    skills: ["Git & GitHub", "Vercel", "Claude AI"],
+  },
+];
 
 export default function SkillsSection() {
   return (
     <motion.section
       id="umiejetnosci"
-      className="bg-gray-100 dark:bg-gray-900 py-24"
-      initial={{ opacity: 0, y: 40 }}
+      aria-labelledby="skills-heading"
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.1 }}
+      transition={{ duration: 0.65, ease: "easeOut" }}
       viewport={{ once: true }}
+      style={{
+        backgroundColor: "#e8ddd0",
+        borderTop: "1px solid #d4c9b8",
+        borderBottom: "1px solid #d4c9b8",
+        padding: "80px 0",
+      }}
     >
-      <div className="max-w-4xl mx-auto px-6">
-        <h2 className="text-3xl font-bold mb-8">Umiejętności</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {skills.map((skill) => (
-            <motion.div
-              key={skill}
-              className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-center text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 cursor-pointer shadow-sm"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3 }}
-              viewport={{ once: true }}
+      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+        {/* Divider label */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "16px",
+            marginBottom: "56px",
+          }}
+        >
+          <div style={{ flex: 1, height: "1px", backgroundColor: "#d4c9b8" }} />
+          <h2
+            id="skills-heading"
+            style={{
+              fontSize: "10px",
+              letterSpacing: "0.44em",
+              textTransform: "uppercase",
+              color: "#d4a853",
+              fontWeight: 500,
+              fontFamily: "inherit",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Technologie
+          </h2>
+          <div style={{ flex: 1, height: "1px", backgroundColor: "#d4c9b8" }} />
+        </div>
+
+        {/* Three category columns */}
+        <div
+          className="skills-cols"
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "0",
+            border: "1px solid #d4c9b8",
+          }}
+        >
+          {SKILL_GROUPS.map((group, gi) => (
+            <div
+              key={group.category}
+              style={{
+                borderRight: gi < SKILL_GROUPS.length - 1 ? "1px solid #d4c9b8" : "none",
+              }}
             >
-              {skill}
-            </motion.div>
+              {/* Category header */}
+              <div
+                style={{
+                  padding: "14px 24px",
+                  borderBottom: "1px solid #d4c9b8",
+                  fontSize: "9px",
+                  letterSpacing: "0.3em",
+                  textTransform: "uppercase",
+                  color: "#b8a990",
+                  backgroundColor: "#e0d4c4",
+                }}
+              >
+                {group.category}
+              </div>
+
+              {/* Skills list */}
+              {group.skills.map((skill, si) => (
+                <motion.div
+                  key={skill}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.2, delay: gi * 0.1 + si * 0.04 }}
+                  viewport={{ once: true }}
+                  style={{
+                    padding: "18px 24px",
+                    borderBottom: si < group.skills.length - 1 ? "1px solid #d4c9b8" : "none",
+                    fontSize: "13px",
+                    fontWeight: 500,
+                    letterSpacing: "0.06em",
+                    color: "#1a1208",
+                    backgroundColor: "#e8ddd0",
+                    cursor: "default",
+                    transition: "background-color 0.15s, color 0.15s, padding-left 0.15s",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                  whileHover={{
+                    backgroundColor: "#1a1208",
+                    color: "#f2ede8",
+                    paddingLeft: "32px",
+                  }}
+                >
+                  <span
+                    style={{
+                      display: "inline-block",
+                      width: "4px",
+                      height: "4px",
+                      borderRadius: "50%",
+                      backgroundColor: "#d4a853",
+                      flexShrink: 0,
+                    }}
+                  />
+                  {skill}
+                </motion.div>
+              ))}
+            </div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .skills-cols { grid-template-columns: 1fr !important; }
+          .skills-cols > div { border-right: none !important; border-bottom: 1px solid #d4c9b8; }
+        }
+      `}</style>
     </motion.section>
   );
 }
