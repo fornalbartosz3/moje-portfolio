@@ -14,7 +14,16 @@
       "Bash(npm run:*)",
       "Bash(npm install:*)",
       "Bash(npm test:*)",
-      "Bash(npx @smithery/cli@latest skill add nextlevelbuilder/ui-ux-pro-max --agent claude-code)"
+      "Bash(npx @smithery/cli@latest skill add nextlevelbuilder/ui-ux-pro-max --agent claude-code)",
+      "Bash(git push:*)",
+      "mcp__vercel__deploy_to_vercel",
+      "Bash(vercel deploy:*)",
+      "Bash(npx vercel:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx jest:*)",
+      "Bash(npm i:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)"
     ]
   }
 }
