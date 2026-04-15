@@ -37,6 +37,7 @@ export default function Navbar() {
         }}
       >
         <div
+          className="navbar-inner"
           style={{
             maxWidth: "1200px",
             margin: "0 auto",
@@ -77,7 +78,7 @@ export default function Navbar() {
             </span>
 
             {/* Desktop nav links */}
-            <div style={{ display: "flex", gap: "24px" }} className="hidden md:flex">
+            <div style={{ gap: "24px" }} className="hidden md:flex">
               {NAV_LINKS.map(({ href, label }) => (
                 <NavLink key={href} href={href}>
                   {label}
@@ -96,7 +97,6 @@ export default function Navbar() {
                 border: "none",
                 cursor: "pointer",
                 padding: "8px",
-                display: "flex",
                 flexDirection: "column",
                 justifyContent: "center",
                 gap: "5px",
@@ -110,6 +110,12 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .navbar-inner { padding: 0 16px !important; }
+        }
+      `}</style>
 
       {/* Mobile menu overlay */}
       {menuOpen && (
