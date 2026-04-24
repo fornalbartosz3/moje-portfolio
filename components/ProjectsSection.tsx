@@ -1,20 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data/projects";
-import { Button } from "@/components/ui/button";
-
-// Derive unique tags from project data
-const ALL_TAGS = Array.from(new Set(projects.flatMap((p) => p.tags)));
-
 export default function ProjectsSection() {
-  const [activeTag, setActiveTag] = useState<string | null>(null);
-
-  const filtered = activeTag
-    ? projects.filter((p) => p.tags.includes(activeTag))
-    : projects;
-
+ 
   return (
     <motion.section
       id="projekty"
@@ -27,9 +16,7 @@ export default function ProjectsSection() {
       style={{ maxWidth: "1200px", margin: "0 auto", padding: "96px 24px" }}
     >
       {/* Golden section divider */}
-      <div
-        style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "40px" }}
-      >
+      <div style={{ display: "flex", alignItems: "center", gap: "16px", marginBottom: "40px" }}>
         <div style={{ flex: 1, height: "1px", backgroundColor: "#d4a853" }} />
         <h2
           id="projects-heading"
@@ -48,21 +35,7 @@ export default function ProjectsSection() {
         <div style={{ flex: 1, height: "1px", backgroundColor: "#d4a853" }} />
       </div>
 
-      {/* Filter bar */}
-      <div
-        role="group"
-        aria-label="Filtruj projekty"
-        style={{ display: "flex", flexWrap: "wrap", gap: "8px", marginBottom: "40px" }}
-      >
-        <FilterBtn active={activeTag === null} onClick={() => setActiveTag(null)}>
-          Wszystkie
-        </FilterBtn>
-        {ALL_TAGS.map((tag) => (
-          <FilterBtn key={tag} active={activeTag === tag} onClick={() => setActiveTag(tag)}>
-            {tag}
-          </FilterBtn>
-        ))}
-      </div>
+     
 
       {/* 3-column newspaper grid */}
       <div
@@ -73,7 +46,7 @@ export default function ProjectsSection() {
           borderTop: "1px solid #d4c9b8",
         }}
       >
-        {filtered.length === 0 ? (
+        {projects.length === 0 ? (
           <div
             style={{
               gridColumn: "1 / -1",
@@ -87,7 +60,7 @@ export default function ProjectsSection() {
             Brak projektów dla wybranego filtra.
           </div>
         ) : (
-          filtered.map((project, index) => (
+          projects.map((project, index) => (
             <article
               key={project.id}
               style={{
@@ -172,21 +145,10 @@ export default function ProjectsSection() {
               {/* Links */}
               <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
                 {project.github && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      GitHub ↗
-                    </a>
-                  </Button>
-                )}
-                {project.demo && (
                   <a
-                    href={project.demo}
-                    target={project.demo === "/" ? undefined : "_blank"}
-                    rel={project.demo === "/" ? undefined : "noopener noreferrer"}
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={linkStyle}
                     onMouseEnter={(e) =>
                       ((e.currentTarget as HTMLAnchorElement).style.borderColor = "#d4a853")
@@ -195,8 +157,7 @@ export default function ProjectsSection() {
                       ((e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent")
                     }
                   >
-                    Demo
-                    <span>→</span>
+                    GitHub <span>↗</span>
                   </a>
                 )}
               </div>
@@ -242,47 +203,3 @@ const linkStyle: React.CSSProperties = {
   transition: "border-color 0.15s",
 };
 
-function FilterBtn({
-  active,
-  onClick,
-  children,
-}: {
-  active: boolean;
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      aria-pressed={active}
-      style={{
-        minHeight: "44px",
-        padding: "0 18px",
-        fontSize: "10px",
-        letterSpacing: "0.2em",
-        textTransform: "uppercase",
-        border: "1px solid",
-        borderColor: active ? "#1a1208" : "#d4c9b8",
-        backgroundColor: active ? "#1a1208" : "transparent",
-        color: active ? "#f2ede8" : "#8a7a65",
-        cursor: "pointer",
-        transition: "all 0.15s",
-        fontFamily: "inherit",
-      }}
-      onMouseEnter={(e) => {
-        if (!active) {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "#1a1208";
-          (e.currentTarget as HTMLButtonElement).style.color = "#1a1208";
-        }
-      }}
-      onMouseLeave={(e) => {
-        if (!active) {
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "#d4c9b8";
-          (e.currentTarget as HTMLButtonElement).style.color = "#8a7a65";
-        }
-      }}
-    >
-      {children}
-    </button>
-  );
-}
