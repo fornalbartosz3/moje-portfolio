@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { projects } from "@/lib/data/projects";
+import { Button } from "@/components/ui/button";
 
 // Derive unique tags from project data
 const ALL_TAGS = Array.from(new Set(projects.flatMap((p) => p.tags)));
@@ -22,6 +23,7 @@ export default function ProjectsSection() {
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.65, ease: "easeOut" }}
       viewport={{ once: true }}
+      className="projects-section"
       style={{ maxWidth: "1200px", margin: "0 auto", padding: "96px 24px" }}
     >
       {/* Golden section divider */}
@@ -170,21 +172,15 @@ export default function ProjectsSection() {
               {/* Links */}
               <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
                 {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={linkStyle}
-                    onMouseEnter={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.borderColor = "#d4a853")
-                    }
-                    onMouseLeave={(e) =>
-                      ((e.currentTarget as HTMLAnchorElement).style.borderColor = "transparent")
-                    }
-                  >
-                    GitHub
-                    <span>↗</span>
-                  </a>
+                  <Button variant="outline" size="sm" asChild>
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      GitHub ↗
+                    </a>
+                  </Button>
                 )}
                 {project.demo && (
                   <a
@@ -214,7 +210,12 @@ export default function ProjectsSection() {
           opacity: 1 !important;
           color: #d4a853 !important;
         }
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
+          .projects-section { padding-left: 16px !important; padding-right: 16px !important; }
+          .projects-grid { grid-template-columns: 1fr !important; }
+          .projects-grid article { border-right: none !important; padding: 24px 16px !important; }
+        }
+        @media (min-width: 641px) and (max-width: 768px) {
           .projects-grid { grid-template-columns: 1fr !important; }
           .projects-grid article { border-right: none !important; }
         }

@@ -1,36 +1,106 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Bartosza Fornala
 
-## Getting Started
+Osobista strona portfolio zaprojektowana w stylu magazynu prasowego (editorial design).
+Prezentuje projekty, umiejętności i formularz kontaktowy. Służy jako wizytówka zawodowa
+i plac ćwiczeń z nowoczesnym stackiem webowym.
 
-First, run the development server:
+**Live:** [moje-portfolio.vercel.app](https://moje-portfolio.vercel.app)
+**Repozytorium:** [github.com/fornalbartosz3/moje-portfolio](https://github.com/fornalbartosz3/moje-portfolio)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## Stack
+
+| Technologia | Wersja | Rola |
+|---|---|---|
+| Next.js | 16 | Framework (App Router) |
+| React | 19 | UI |
+| TypeScript | ^5 | Typowanie |
+| Tailwind CSS | ^4 | Utility-first CSS |
+| Framer Motion | ^12 | Animacje |
+| Resend | ^6 | Wysyłanie emaili |
+| next-themes | ^0.4 | Motywy (dark/light) |
+| Radix UI | ^1 | Komponenty dostępności |
+| shadcn/ui | ^4 | Biblioteka komponentów UI |
+| Jest + Testing Library | ^30 / ^16 | Testy jednostkowe |
+
+---
+
+## Architektura
+
+### Hexagonal Architecture — formularz kontaktowy
+
+Formularz kontaktowy używa wzorca portów i adapterów, co pozwala na wymianę
+providera emaili bez zmiany logiki biznesowej.
+
+```mermaid
+graph TD
+    A[ContactSection.tsx] --> B[POST /api/contact]
+    B --> C{EmailPort}
+    C -->|produkcja| D[ResendEmailAdapter]
+    C -->|testy| E[FakeEmailAdapter]
+    D --> F[Resend API]
+    E --> G[sentEmails array]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Port** (`lib/ports/email.port.ts`) — definiuje kontrakt `sendContactEmail(payload)`
+- **ResendEmailAdapter** (`lib/adapters/resend.adapter.ts`) — implementacja produkcyjna
+- **FakeEmailAdapter** (`lib/adapters/fake-email.adapter.ts`) — implementacja testowa
+- **Route** (`app/api/contact/route.ts`) — zna tylko `EmailPort`, nie zna konkretnego adaptera
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Struktura katalogów
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+moje-portfolio/
+├── app/                    # Next.js App Router (strony, API routes, layout)
+├── components/             # Komponenty React (sekcje, Navbar, Footer)
+│   └── ui/                 # Bazowe komponenty shadcn/ui
+├── lib/
+│   ├── data/               # Dane statyczne (projekty)
+│   ├── ports/              # Interfejsy (EmailPort)
+│   └── adapters/           # Implementacje (Resend, Fake)
+└── __tests__/              # Testy komponentów
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Uruchomienie lokalne
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# 1. Klonuj repozytorium
+git clone https://github.com/fornalbartosz3/moje-portfolio.git
+cd moje-portfolio
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# 2. Zainstaluj zależności
+npm install
 
-## Deploy on Vercel
+# 3. Skonfiguruj zmienne środowiskowe
+cp .env.local.example .env.local
+# Uzupełnij RESEND_API_KEY w .env.local
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+# 4. Uruchom serwer deweloperski
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Otwórz [http://localhost:3000](http://localhost:3000) w przeglądarce.
+
+### Zmienne środowiskowe
+
+| Zmienna | Wymagana | Opis |
+|---|---|---|
+| `RESEND_API_KEY` | TAK | Klucz API Resend (formularz kontaktowy) |
+| `CONTACT_EMAIL` | NIE | Email docelowy (domyślnie: `twoj@email.com`) |
+
+### Testy
+
+```bash
+npm test                          # Jeden przebieg
+npm run test:watch                # Tryb watch
+npx jest lib/contact.test.ts      # Konkretny plik
+```
+
+---
+
+## Deployment
+
+Projekt wdrażany automatycznie na [Vercel](https://vercel.com) przy każdym push na gałąź `main`.
