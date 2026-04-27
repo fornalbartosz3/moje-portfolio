@@ -33,7 +33,7 @@ export default function SkillsSection() {
         padding: "80px 0",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+      <div className="skills-inner" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
         {/* Divider label */}
         <div
           style={{
@@ -141,8 +141,11 @@ export default function SkillsSection() {
 
       <style>{`
         @media (max-width: 640px) {
-          .skills-cols { grid-template-columns: 1fr !important; }
-          .skills-cols > div { border-right: none !important; border-bottom: 1px solid #d4c9b8; }
+          .skills-inner { padding-left: 16px !important; padding-right: 16px !important; }
+          .skills-cols { grid-template-columns: repeat(2, 1fr) !important; }
+          .skills-cols > div:nth-child(odd) { border-right: 1px solid #d4c9b8 !important; }
+          .skills-cols > div:nth-child(even) { border-right: none !important; }
+          .skills-cols > div:not(:nth-last-child(-n+2)) { border-bottom: 1px solid #d4c9b8 !important; }
         }
       `}</style>
     </motion.section>

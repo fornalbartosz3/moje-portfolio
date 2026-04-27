@@ -8,6 +8,7 @@ export const projects: Project[] = [
       "Osobista strona portfolio w stylu magazynu prasowego. Zbudowana z myślą o wydajności i dostępności — Next.js 16, Tailwind CSS v4 i Framer Motion.",
     tags: ["Next.js", "TypeScript", "Tailwind"],
     github: "https://github.com/fornalbartosz3/moje-portfolio",
+    demo: "/",
   },
   {
     id: 2,
@@ -16,6 +17,7 @@ export const projects: Project[] = [
       "Aplikacja pogodowa z danymi na żywo z OpenWeatherMap API. Wyszukiwanie miast, prognoza 5-dniowa i automatyczna geolokalizacja.",
     tags: ["React", "TypeScript"],
     github: "https://github.com/fornalbartosz3/weather-now",
+    demo: "/"
   },
   {
     id: 3,

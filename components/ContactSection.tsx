@@ -43,7 +43,7 @@ export default function ContactSection() {
         padding: "96px 0",
       }}
     >
-      <div style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
+      <div className="contact-inner" style={{ maxWidth: "1200px", margin: "0 auto", padding: "0 24px" }}>
         <div
           className="contact-cols"
           style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "80px", alignItems: "start" }}
@@ -203,7 +203,8 @@ export default function ContactSection() {
             <button
               type="submit"
               disabled={status === "sending"}
-              style={{
+              className="contact-submit"
+            style={{
                 minHeight: "48px",
                 padding: "0 28px",
                 backgroundColor: "#1a1208",
@@ -268,6 +269,10 @@ export default function ContactSection() {
       <style>{`
         @media (max-width: 768px) {
           .contact-cols { grid-template-columns: 1fr !important; gap: 48px !important; }
+        }
+        @media (max-width: 640px) {
+          .contact-inner { padding-left: 16px !important; padding-right: 16px !important; }
+          .contact-submit { align-self: stretch !important; width: 100% !important; }
         }
       `}</style>
     </motion.section>

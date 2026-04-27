@@ -23,6 +23,7 @@ export default function HeroSection() {
   return (
     <section
       aria-label="Sekcja główna"
+      className="hero-section"
       style={{
         minHeight: "calc(100dvh - 89px)",
         display: "flex",
@@ -101,7 +102,7 @@ export default function HeroSection() {
               fontFamily: "Georgia, serif",
               fontStyle: "italic",
               fontWeight: "bold",
-              fontSize: "clamp(4.5rem, 11vw, 10rem)",
+              fontSize: "clamp(2.5rem, 11vw, 10rem)",
               lineHeight: 0.88,
               letterSpacing: "-0.02em",
               color: "#1a1208",
@@ -310,6 +311,7 @@ export default function HeroSection() {
 
       <style>{`
         @media (max-width: 640px) {
+          .hero-section { padding-left: 16px !important; padding-right: 16px !important; }
           .hero-cols { grid-template-columns: 1fr !important; }
           .hero-cols > div:last-child { display: flex; justify-content: flex-start !important; }
           .hero-cols > div:last-child > div { max-width: 100% !important; }

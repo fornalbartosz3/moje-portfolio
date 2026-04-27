@@ -23,7 +23,18 @@
       "Bash(npx jest:*)",
       "Bash(npm i:*)",
       "Bash(git checkout:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(npx next:*)",
+      "Bash(git branch:*)",
+      "Bash(git pull:*)",
+      "Bash(git stash:*)",
+      "Bash(npx eslint *)",
+      "Bash(npx create-next-app@latest weather-now --typescript --tailwind --eslint --app --src=false --import-alias \"@/*\" --no-git)",
+      "Bash(npx shadcn@latest init --defaults)",
+      "Bash(npx shadcn@latest add input card skeleton badge --overwrite)",
+      "Bash(taskkill /PID 38432 /F)",
+      "PowerShell(Stop-Process *)"
     ]
   }
 }
