@@ -21,10 +21,11 @@ export const projects: Project[] = [
   },
   {
     id: 3,
-    title: "TaskFlow",
+    title: "Hell Pizza",
     description:
-      "Menedżer zadań z drag-and-drop, etykietami i filtrowaniem. Dane persystowane w localStorage — bez backendu, działa offline.",
-    tags: ["React", "TypeScript", "Tailwind"],
-    github: "https://github.com/fornalbartosz3/task-flow",
+      "Wizytówka fikcyjnej pizzerii z mrocznym, gotyckim charakterem. Animowane sekcje, filtrowalne menu, formularz rezerwacji z wysyłką maili i mapa Leaflet.",
+    tags: ["Next.js", "TypeScript", "Framer Motion", "Leaflet"],
+    github: "https://github.com/fornalbartosz3/hell-pizza",
+    demo: "/"
   },
 ];
