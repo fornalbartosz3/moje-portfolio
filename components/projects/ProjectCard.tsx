@@ -8,15 +8,18 @@ interface Props {
 export default function ProjectCard({ project, isLastColumn }: Props) {
   return (
     <article
+      className="project-card"
       style={{
         padding: "36px 28px",
         borderRight: isLastColumn ? "none" : "1px solid #d4c9b8",
         borderBottom: "1px solid #d4c9b8",
         display: "flex",
         flexDirection: "column",
+        transition: "background-color 0.2s",
       }}
     >
       <div
+        className="project-num"
         style={{
           fontFamily: "Georgia, serif",
           fontSize: "68px",
@@ -26,6 +29,7 @@ export default function ProjectCard({ project, isLastColumn }: Props) {
           marginBottom: "20px",
           userSelect: "none",
           opacity: 0.12,
+          transition: "opacity 0.25s, color 0.25s",
         }}
       >
         {String(project.index).padStart(2, "0")}

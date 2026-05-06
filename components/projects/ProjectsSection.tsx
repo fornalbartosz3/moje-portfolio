@@ -70,6 +70,11 @@ export default function ProjectsSection() {
       </div>
 
       <style>{`
+        .project-card:hover { background-color: #faf7f2; }
+        .project-card:hover .project-num {
+          opacity: 1 !important;
+          color: #d4a853 !important;
+        }
         @media (max-width: 767px) {
           .projects-grid article { border-right: none !important; }
         }

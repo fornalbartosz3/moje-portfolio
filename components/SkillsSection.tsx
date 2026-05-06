@@ -63,10 +63,8 @@ export default function SkillsSection() {
 
         {/* Three category columns */}
         <div
-          className="skills-cols"
+          className="skills-cols grid grid-cols-1 md:grid-cols-3"
           style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
             gap: "0",
             border: "1px solid #d4c9b8",
           }}
@@ -140,12 +138,10 @@ export default function SkillsSection() {
       </div>
 
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 767px) {
           .skills-inner { padding-left: 16px !important; padding-right: 16px !important; }
-          .skills-cols { grid-template-columns: repeat(2, 1fr) !important; }
-          .skills-cols > div:nth-child(odd) { border-right: 1px solid #d4c9b8 !important; }
-          .skills-cols > div:nth-child(even) { border-right: none !important; }
-          .skills-cols > div:not(:nth-last-child(-n+2)) { border-bottom: 1px solid #d4c9b8 !important; }
+          .skills-cols > div { border-right: none !important; }
+          .skills-cols > div:not(:last-child) { border-bottom: 1px solid #d4c9b8; }
         }
       `}</style>
     </motion.section>
